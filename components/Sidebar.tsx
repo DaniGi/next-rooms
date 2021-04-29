@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tab, Nav } from 'react-bootstrap';
+import { Tab, Nav, Button } from 'react-bootstrap';
 import Rooms from './Rooms';
 import Friends from './Friends';
 
@@ -26,7 +26,7 @@ const Sidebar: React.FC<Props> = () => {
           </Nav.Link>
         </Nav.Item>
       </Nav>
-      <Tab.Content>
+      <Tab.Content className="flex-grow-1 overflow-auto">
         <Tab.Pane eventKey="rooms">
           <Rooms />
         </Tab.Pane>
@@ -34,6 +34,9 @@ const Sidebar: React.FC<Props> = () => {
           <Friends />
         </Tab.Pane>
       </Tab.Content>
+      <Button onClick={() => {}} className="w-100 rounded-0">
+        New {activeKey === 'rooms' ? 'ROOM' : 'FRIEND'}
+      </Button>
     </Tab.Container>
   );
 };
