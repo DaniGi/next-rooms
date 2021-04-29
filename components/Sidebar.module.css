@@ -1,0 +1,8 @@
+.sidebarListElement:nth-child(odd)  {
+  background: lightskyblue;
+}
+
+.sidebarListElement:nth-child(even)  {
+  background: lightgray;
+}
+
