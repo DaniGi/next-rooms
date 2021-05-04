@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "SET TS_NODE_PROJECT=./tsconfig.server.json&& nodemon server/server.ts",
+    "dev": "nodemon",
     "build:server": "tsc --project tsconfig.server.json",
     "build:next": "next build",
     "build": "npm run build:next && npm run build:server",
