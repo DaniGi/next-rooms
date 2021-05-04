@@ -4,7 +4,7 @@ import styles from './Sidebar.module.css';
 interface Props {}
 
 const friends = [
-  { name: 'Jo', isConnected: false },
+  { name: 'Johanna', isConnected: false },
   { name: 'Edd', isConnected: true },
   { name: 'Anna', isConnected: true },
   { name: 'Olga', isConnected: false },
