@@ -1,9 +1,9 @@
+import { User } from './pages';
+
 const API_URL = 'http://localhost:3000';
 
-type TLogUser = (username: string) => Promise<Response>;
-
-export const logUser: TLogUser = (username) => {
+export const logUser = (username: string) => {
   return fetch(`${API_URL}/auth/${username}`)
-    .then((res) => res.json())
+    .then((res) => res.json() as Promise<User>)
     .catch((err) => err);
 };

@@ -15,9 +15,8 @@ const Login: React.FC<Props> = ({ setUser }) => {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const userMutation = useMutation(logUser, {
-    onSuccess: (data) => {
-      const user = JSON.parse(data);
-      setUser(user);
+    onSuccess: (data: User) => {
+      setUser(data);
       router.push('/');
     },
   });
