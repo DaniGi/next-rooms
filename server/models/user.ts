@@ -1,16 +1,17 @@
 import { model, Model, Schema, Document } from 'mongoose';
 
-interface IUser extends Document {
-  name: string;
-  online: { type: Boolean; default: true };
+export interface IUser extends Document {
+  username: string;
+  online: boolean;
   friends: string[];
   rooms: string[];
 }
 
 const userSchema: Schema = new Schema({
-  name: { type: String, required: true },
-  friends: { type: [{ type: String }], default: [] },
-  rooms: { type: [{ type: String }], default: [] },
+  username: { type: String, required: true },
+  online: { type: Boolean, default: false },
+  friends: [{ type: String, default: [''] }],
+  rooms: [{ type: String, default: [''] }],
 });
 
 const User: Model<IUser> = model('User', userSchema);

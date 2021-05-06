@@ -1,15 +1,16 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import * as http from 'http';
 import next, { NextApiHandler } from 'next';
 import * as socketio from 'socket.io';
 import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
+import userRoutes from './routes/user';
 
 dotenv.config({ path: `${__dirname}/../.env.development.local` });
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.MONGO_USER_EDIT_ONLY}:${process.env.MONGO_PASSWORD_EDIT_ONLY}@cluster0.y8qeq.mongodb.net/${process.env.MONGO_DB_NAME}?retryWrites=true&w=majority`,
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.y8qeq.mongodb.net/${process.env.MONGO_DB_NAME}?retryWrites=true&w=majority`,
     { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
   )
   .then(() => console.log(`> Connected to MongoDB database: ${process.env.MONGO_DB_NAME}`))
@@ -28,9 +29,7 @@ nextApp.prepare().then(async () => {
   const io: socketio.Server = new socketio.Server();
   io.attach(server);
 
-  app.get('/hello', async (_: Request, res: Response) => {
-    res.send('Hello World');
-  });
+  app.use('/auth', userRoutes);
 
   io.on('connection', (socket: socketio.Socket) => {
     console.log('connection');
