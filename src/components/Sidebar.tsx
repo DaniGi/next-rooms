@@ -9,7 +9,7 @@ const { useState } = React;
 
 interface Props {}
 
-type TabKeys = 'rooms' | 'friends';
+type TabKeys = string | null;
 
 const Sidebar: React.FC<Props> = () => {
   const [activeKey, setActiveKey] = useState<TabKeys>('rooms');
@@ -44,7 +44,7 @@ const Sidebar: React.FC<Props> = () => {
       </Tab.Container>
 
       <Modal show={showModal} onHide={() => SetShowModal(false)}>
-        {activeKey === 'rooms' ? <NewRoomModal /> : <NewFriendModal />}
+        {activeKey === 'rooms' ? <NewRoomModal /> : <NewFriendModal SetShowModal={SetShowModal} />}
       </Modal>
     </>
   );
