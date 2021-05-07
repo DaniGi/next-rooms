@@ -2,21 +2,19 @@ import * as React from 'react';
 import { useRouter } from 'next/router';
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import { useMutation } from 'react-query';
-import { User } from 'src/pages';
+import { useUser, IUser } from '../contexts/UserContext';
 import { logUser } from '../API';
 
 const { useRef } = React;
 
-interface Props {
-  setUser: React.Dispatch<React.SetStateAction<User>>;
-}
-
-const Login: React.FC<Props> = ({ setUser }) => {
+const Login: React.FC = () => {
   const router = useRouter();
+  const { userDispatch } = useUser();
   const inputRef = useRef<HTMLInputElement>(null);
+
   const userMutation = useMutation(logUser, {
-    onSuccess: (data: User) => {
-      setUser(data);
+    onSuccess: (data: IUser) => {
+      userDispatch({ type: 'set-user', payload: data });
       router.push('/');
     },
   });
