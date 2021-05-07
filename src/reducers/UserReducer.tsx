@@ -1,7 +1,7 @@
 import { IUser } from 'src/contexts/UserContext';
 
 interface IAction {
-  type: 'set-user';
+  type: 'set-user' | 'add-friend';
   payload?: any;
 }
 
@@ -14,11 +14,21 @@ const setUser: TDispatchFunc = (state, payload) => {
   };
 };
 
+const addFriend: TDispatchFunc = (state, payload) => {
+  const { friends } = state;
+  return {
+    ...state,
+    friends: [payload, ...friends],
+  };
+};
+
 export function UserReducer(state: IUser, action: IAction) {
   const { type, payload } = action;
   switch (type) {
     case 'set-user':
       return setUser(state, payload);
+    case 'add-friend':
+      return addFriend(state, payload);
     default:
       return state;
   }

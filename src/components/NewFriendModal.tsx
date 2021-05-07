@@ -10,12 +10,13 @@ interface Props {
 }
 
 const NewFriendModal: React.FC<Props> = ({ SetShowModal }) => {
-  const { userDispatch } = useUser();
+  const { userState, userDispatch } = useUser();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const userMutation = useMutation(addFriend, {
-    onSuccess: (data: string) => {
-      userDispatch({ type: 'add-friend', payload: data });
+    onSuccess: () => {
+      const friend = inputRef.current;
+      userDispatch({ type: 'add-friend', payload: friend ? friend.value : '' });
       SetShowModal(false);
     },
   });
@@ -23,7 +24,7 @@ const NewFriendModal: React.FC<Props> = ({ SetShowModal }) => {
   const onSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     if (inputRef.current) {
-      userMutation.mutate(inputRef.current.value);
+      userMutation.mutate({ username: userState.username, friend: inputRef.current.value });
     }
   };
 

@@ -30,4 +30,20 @@ router.get('/:username', async (req: Request, res: Response) => {
   }
 });
 
+router.post('/friend', async (req: Request, res: Response) => {
+  try {
+    const user = await User.findOne({ username: req.body.username });
+    if (!user) {
+      return res.status(401).json({ error: 'user not found' });
+    }
+    await User.updateOne(
+      { username: req.body.username },
+      { friends: [req.body.friend, ...user.friends] },
+    );
+    return res.status(200).json({ message: 'friend added' });
+  } catch (error) {
+    return res.status(401).json({ error });
+  }
+});
+
 export default router;

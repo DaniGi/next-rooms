@@ -29,7 +29,9 @@ nextApp.prepare().then(async () => {
   const io: socketio.Server = new socketio.Server();
   io.attach(server);
 
-  app.use('/auth', userRoutes);
+  app.use(express.urlencoded({ limit: '50mb', extended: true }));
+  app.use(express.json());
+  app.use('/user', userRoutes);
 
   io.on('connection', (socket: socketio.Socket) => {
     console.log('connection');

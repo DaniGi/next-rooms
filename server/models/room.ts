@@ -11,7 +11,7 @@ interface IRoom extends Document {
 const roomSchema: Schema = new Schema({
   name: { type: String, required: true, unique: true },
   admin: { type: String, required: true },
-  recipients: { type: [{ type: String }], required: true },
+  recipients: [{ type: String, required: true }],
   messages: {
     type: [
       {
