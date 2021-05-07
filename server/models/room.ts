@@ -1,4 +1,5 @@
 import { model, Model, Schema, Document } from 'mongoose';
+import uniqueValidator from 'mongoose-unique-validator';
 
 interface IRoom extends Document {
   name: string;
@@ -8,7 +9,7 @@ interface IRoom extends Document {
 }
 
 const roomSchema: Schema = new Schema({
-  name: { type: String, required: true },
+  name: { type: String, required: true, unique: true },
   admin: { type: String, required: true },
   recipients: { type: [{ type: String }], required: true },
   messages: {
@@ -21,6 +22,8 @@ const roomSchema: Schema = new Schema({
     default: [],
   },
 });
+
+roomSchema.plugin(uniqueValidator);
 
 const Room: Model<IRoom> = model('Room', roomSchema);
 
